@@ -8,6 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 import LandingPage from './screens/LandingPage';
 import SingIn from './screens/auth/SignIn';
 import SignUp from './screens/auth/SignUp';
+import LocationPermission from './screens/auth/LocationPermission';
 
 const Stack = createNativeStackNavigator();
 
@@ -50,6 +51,7 @@ export default function App() {
           <Stack.Screen name="LandingPage" component={LandingPage} />
           <Stack.Screen name="SignIn" component={SingIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="LocationPermission" component={LocationPermission} />
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar backgroundColor='#F1F1F1' style='dark'/>
