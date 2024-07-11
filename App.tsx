@@ -8,6 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 import LandingPage from './screens/LandingPage';
 import SingIn from './screens/auth/SignIn';
 import SignUp from './screens/auth/SignUp';
+import DummyHome from './screens/DummyHome';
 
 const Stack = createNativeStackNavigator();
 
