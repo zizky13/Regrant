@@ -62,7 +62,7 @@ const SignUp = () => {
                 handleChangeText={(e) => setForm({...form, password:e})}
                 otherStyles="mt-7"
               />
-              <CustomButton title="Sign In" handlePress={() => navigation.navigate("SignIn")} containerStyles='px-5 w-full mt-7'/>
+              <CustomButton title="Sign In" handlePress={() => navigation.navigate("LocationPermission")} containerStyles='px-5 w-full mt-7'/>
               <View className="justify-center pt-5 flex-row gap-1">
                 <Text className="text-lg text-mainText font-pregular">
                   Have an account already?
