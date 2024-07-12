@@ -11,6 +11,7 @@ import SignUp from './screens/auth/SignUp';
 import LocationPermission from './screens/auth/LocationPermission';
 import MainLayout from './screens/tabs/MainLayout';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { LogBox } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function App() {
 
+  LogBox.ignoreLogs(['@firebase/auth: Auth (10.12.3):']);
   const [fontsLoaded, error] = useFonts({
     "Poppins-Black": require("./assets/fonts/Poppins-Black.ttf"),
     "Poppins-Bold": require("./assets/fonts/Poppins-Bold.ttf"),
@@ -50,7 +52,7 @@ export default function App() {
     <QueryClientProvider client={new QueryClient()}>
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='MainLayout' screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName='LandingPage' screenOptions={{ headerShown: false }}>
           <Stack.Screen name="LandingPage" component={LandingPage} />
           <Stack.Screen name="SignIn" component={SingIn} />
           <Stack.Screen name="SignUp" component={SignUp} />

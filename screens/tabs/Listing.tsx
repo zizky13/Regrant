@@ -144,7 +144,11 @@ const OfferCard = () => {
             data={document}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => navigation.navigate("Details")}
+            <TouchableOpacity onPress={() => navigation.navigate("Details", {
+                title: item.title,
+                image: item.image,
+                conditionPercentage: item.conditionPercentage,
+            })}
                 className='flex-row border-[2px] rounded-[5px] border-disabled mb-[12px] p-[8px]'
                 >
                 <Image source={{
