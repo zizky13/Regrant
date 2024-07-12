@@ -5,7 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import CustomInput from '../../components/CustomInput'
 import * as ImagePicker from 'expo-image-picker'
 import { icons } from '../../constants'
-import {Picker} from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 import { Dropdown } from 'react-native-element-dropdown';
 import CustomButton from '../../components/CustomButton'
 
@@ -56,7 +56,7 @@ const CreateList = () => {
           <Text className="text-2xl text-mainText font-psemibold">
             Make Your Listing
           </Text>
-          <View className="mt-7 space-y-2">
+          <View className="mt-7 space-y-2 ">
             <TouchableOpacity onPress={() => openPicker('image')}>
               {form.photo ? (
                 <Image
@@ -69,9 +69,9 @@ const CreateList = () => {
                   <Image
                     source={icons.picture}
                     resizeMode='contain'
-                    className="w-5 h-5"
+                    className="w-8 h-8"
                   />
-                  <Text className="text-sm text-mainText font-pmedium">
+                  <Text className="text-sm text-disabled font-pmedium ">
                     Take item photo
                   </Text>
                 </View>
@@ -83,7 +83,7 @@ const CreateList = () => {
             value = {form.title}
             placeholder="Title (eg. Watches, Fan, Chair, etc.)"
             handleChangeText={(e) => setForm({...form, title:e})}
-            otherStyles="mt-7"
+            otherStyles="mt-5"
             multiline={true}
           />
           <Dropdown
@@ -110,7 +110,7 @@ const CreateList = () => {
             value = {form.description}
             placeholder="Description (Condition, Weight, etc.)"
             handleChangeText={(e) => setForm({...form, description:e})}
-            otherStyles="mt-7"
+            otherStyles="mt-5"
             multiline={true}
           />
            <CustomInput
@@ -118,10 +118,10 @@ const CreateList = () => {
             value = {form.description}
             placeholder="Address (City, Street, etc.)"
             handleChangeText={(e) => setForm({...form, address:e})}
-            otherStyles="mt-7"
+            otherStyles="mt-5"
             multiline={true}
           />
-          <View className='w-full items-center justify-center mt-7'>
+          <View className='w-full items-center justify-center mt-10'>
             <CustomButton title="Submit" handlePress={() => console.log('helloword')} containerStyles='px-5 w-full'/>
           </View>
         </ScrollView>
@@ -136,12 +136,12 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   dropdown: {
-    height: 64,
+    height: 60,
     borderColor: '#252525',
     borderWidth: 2,
     borderRadius: 16,
     paddingHorizontal: 8,
-    marginTop: 27
+    marginTop: 20
   },
   icon: {
     marginRight: 5,
@@ -156,10 +156,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   placeholderStyle: {
-    fontSize: 16,
+    fontSize: 14.5,
+    fontFamily: "Poppins-Medium",
+    paddingLeft:9,
+    color:'#a7a7a7'
   },
   selectedTextStyle: {
     fontSize: 16,
+    fontFamily: "Poppins-Medium",
+    paddingLeft:9,
   },
   iconStyle: {
     width: 20,
