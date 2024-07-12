@@ -5,14 +5,16 @@ import { ScrollView } from 'react-native-gesture-handler'
 import CustomInput from '../../components/CustomInput'
 import * as ImagePicker from 'expo-image-picker'
 import { icons } from '../../constants'
-import { Picker } from '@react-native-picker/picker';
 import { Dropdown } from 'react-native-element-dropdown';
 import CustomButton from '../../components/CustomButton'
 import { listFiles, uploadToFirebase } from '../../services/firebase';
 import * as MediaLibrary from 'expo-media-library';
+import { addDoc, collection, doc, setDoc } from 'firebase/firestore'
+import { db } from '../../services/firebase'
+import { useNavigation } from '@react-navigation/native'
+
 
 const CreateList = () => {
-
   const [activeTab, setActiveTab] = useState('offer');
 
   return (
@@ -89,14 +91,14 @@ const RequestForm = () => {
 };
 
 const OfferForm =  () => {
+  const navigation = useNavigation();
   const [form, setForm] = useState({
     title: '',
     description: '',
     photo: null,
     address: ''
   })
-
-  const [selected, setSelected] = useState();
+  const [downloadURL, setDownloadURL] = useState(''); 
 
   const openPicker = async (selectType) => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -124,8 +126,6 @@ const OfferForm =  () => {
 
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
-
-  const [image, setImage] = useState(null);
   const [files, setFiles] = useState([]);
 
   useEffect(() => {
@@ -163,7 +163,7 @@ const OfferForm =  () => {
             const uploadResp = await uploadToFirebase(uri, fileName, (v) =>
                 console.log(v)
             );
-            console.log(uploadResp);
+            setDownloadURL(uploadResp.downloadUrl);
             setForm({...form, photo: {uri}}); // update form state
         } else {
             console.log('User cancelled image picker');
@@ -179,6 +179,29 @@ const OfferForm =  () => {
         Alert.alert("Error uploading image " + e.message);
     }
   };
+  const submitHandler = async () => {
+    try{
+      await addDoc(collection(db, "listing-offer"), {
+        title: form.title,
+        description: form.description,
+        image: downloadURL,
+        address: form.address,
+        type: value,
+        condition: 'new',
+        get: true,
+        borrow: false,
+        distance: `${Math.floor(Math.random() * 950)} m`,
+        conditionPercentage: 50,
+      });
+
+      Alert.alert('Success', 'Listing created successfully');
+      navigation.navigate('Home');
+    } catch(e){
+      console.log(e)
+    }
+    
+  }
+
   return (
     <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -273,7 +296,7 @@ const OfferForm =  () => {
               multiline={true}
             />
             <View className='w-full items-center justify-center mt-10 mb-4'>
-              <CustomButton title="Submit" handlePress={() => console.log('helloword')} containerStyles='px-5 w-full '/>
+              <CustomButton title="Submit" handlePress={submitHandler} containerStyles='px-5 w-full'/>
             </View>
         </ScrollView>
       </KeyboardAvoidingView>
