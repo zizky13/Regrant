@@ -1,5 +1,5 @@
-import { View, Text, KeyboardAvoidingView, Platform, Image, TouchableOpacity, StyleSheet, Alert } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, KeyboardAvoidingView, Platform, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ScrollView } from 'react-native-gesture-handler'
 import CustomInput from '../../components/CustomInput'
@@ -8,8 +8,6 @@ import { icons } from '../../constants'
 import { Picker } from '@react-native-picker/picker';
 import { Dropdown } from 'react-native-element-dropdown';
 import CustomButton from '../../components/CustomButton'
-import { listFiles, uploadToFirebase } from '../../services/firebase';
-import * as MediaLibrary from 'expo-media-library';
 
 const CreateList = () => {
   const [form, setForm] = useState({
@@ -48,62 +46,6 @@ const CreateList = () => {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
-  const [image, setImage] = useState(null);
-  const [files, setFiles] = useState([]);
-
-  useEffect(() => {
-      listFiles().then((listResp) => {
-          const files = listResp.map((value) => {
-              return { name: value.fullPath };
-          });
-          setFiles(files);
-      });
-  }, []);
-
-  const openCamera = async () => {
-    try {
-        const { status } = await ImagePicker.requestCameraPermissionsAsync();
-        if (status !== 'granted') {
-            alert('Sorry, we need camera permissions to make this work!');
-            return;
-        }
-
-        let result = await ImagePicker.launchCameraAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            aspect: [1,1],
-            quality: 1,
-        });
-
-        if (!result.canceled) {
-            console.log(result.assets[0].uri);
-            const { uri } = result.assets[0];
-            const fileName = uri.split("/").pop();
-
-            // Save the image to the phone's storage
-            const asset = await MediaLibrary.createAssetAsync(uri);
-            await MediaLibrary.createAlbumAsync('ExpoPhotos', asset, false);
-
-            const uploadResp = await uploadToFirebase(uri, fileName, (v) =>
-                console.log(v)
-            );
-            console.log(uploadResp);
-            setForm({...form, photo: {uri}}); // update form state
-        } else {
-            console.log('User cancelled image picker');
-
-            listFiles().then((listResp) => {
-                const files = listResp.map((value) => {
-                    return { name: value.fullPath };
-                });
-                setFiles(files);
-            });
-        }
-    } catch (e) {
-        Alert.alert("Error uploading image " + e.message);
-    }
-  };
-
-
   return (
     <SafeAreaView className="h-full">
       <KeyboardAvoidingView
@@ -114,45 +56,27 @@ const CreateList = () => {
           <Text className="text-2xl text-mainText font-psemibold">
             Make Your Listing
           </Text>
-          <View className="py-3">
-            {form.photo && <Image source={{uri: form.photo.uri}} resizeMode='cover' className="w-full h-40 px-4 rounded-2xl"/>}
-          </View>
-          <View className="flex-row justify-evenly items-center pd-5 w-full h-24 px-4 rounded-2xl border-2 border-dashed border-black-100 space-x-2">
-            <View>
-              <TouchableOpacity onPress={() => openPicker('image')}>
-                  <View className="flex-row">
-                    <View>
-                      <Image
-                        source={icons.picture}
-                        resizeMode='contain'
-                        className="w-8 h-8"
-                      />
-                    </View>
-                    <View className="px-2">
-                      <Text className="text-xs text-disabled font-pmedium">Take photo</Text>
-                      <Text className="text-xs text-disabled font-pmedium ">from gallery</Text>
-                    </View>
-                  </View>
-              </TouchableOpacity>
-            </View>
-            <View className='w-0.5 h-20 bg-black'/>
-            <View>
-              <TouchableOpacity onPress={openCamera}>
-                  <View className="flex-row">
-                    <View>
-                      <Image
-                        source={icons.camera}
-                        resizeMode='contain'
-                        className="w-8 h-8"
-                      />
-                    </View>
-                    <View className="px-2">
-                      <Text className="text-xs text-disabled font-pmedium">Take photo</Text>
-                      <Text className="text-xs text-disabled font-pmedium ">with camera</Text>
-                    </View>
-                  </View>
-              </TouchableOpacity>
-            </View>
+          <View className="mt-7 space-y-2 ">
+            <TouchableOpacity onPress={() => openPicker('image')}>
+              {form.photo ? (
+                <Image
+                  source={{uri: form.photo.uri}}
+                  resizeMode='cover'
+                  className="w-full h-40 px-4 rounded-2xl"
+                />
+              ) : (
+                <View className="w-full h-24 px-4 rounded-2xl justify-center items-center border-2 border-dashed border-black-100 flex-row space-x-2">
+                  <Image
+                    source={icons.picture}
+                    resizeMode='contain'
+                    className="w-8 h-8"
+                  />
+                  <Text className="text-sm text-disabled font-pmedium ">
+                    Take item photo
+                  </Text>
+                </View>
+              )}
+            </TouchableOpacity>
           </View>
           <CustomInput
             title="Title"
