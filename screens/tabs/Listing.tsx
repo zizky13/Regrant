@@ -74,7 +74,7 @@ const TopTabs = ({ setActiveTab, activeTab }) => {
                 style={{ borderBottomWidth: activeTab === 'offer' ? 2 : 0 }}
             >
                 <Text className='text-[25px] font-medium'
-                    style={{ color: activeTab === 'offer' ? '#252525' : '#707070' }}
+                    style={{ color: activeTab === 'offer' ? '#252525' : '#808080' }}
                 > Offer </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => setActiveTab('request')}
@@ -82,7 +82,7 @@ const TopTabs = ({ setActiveTab, activeTab }) => {
                 className=' border-b-mainText pb-[3px]'   
             >
                 <Text className='text-[25px] font-medium'
-                    style={{ color: activeTab === 'request' ? '#252525' : '#707070'}}
+                    style={{ color: activeTab === 'request' ? '#252525' : '#808080'}}
                     
                 > Request</Text>
             </TouchableOpacity>

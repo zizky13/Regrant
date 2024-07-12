@@ -12,6 +12,89 @@ import { listFiles, uploadToFirebase } from '../../services/firebase';
 import * as MediaLibrary from 'expo-media-library';
 
 const CreateList = () => {
+
+  const [activeTab, setActiveTab] = useState('offer');
+
+  return (
+    <SafeAreaView className="h-full">
+      <View className='mt-7 mx-5 flex-row items-center justify-evenly'>
+        <TouchableOpacity onPress={() => setActiveTab('offer')}>
+          <Text
+            className={`font-pmedium text-[15px] ${activeTab === 'offer' ? 'text-mainText' : 'text-disabled'}`}
+          >
+            Offer form
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setActiveTab('request')}>
+          <Text
+            className={`font-pmedium text-[15px] ${activeTab === 'request' ? 'text-mainText' : 'text-disabled'}`}
+          >
+            Request form
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      {activeTab === 'offer' && (
+        <OfferForm/>
+      )}
+
+      {activeTab === 'request' && (
+        <RequestForm/>
+      )}  
+      
+    </SafeAreaView>
+  )
+}
+
+const RequestForm = () => {
+  const [form, setForm] = useState({
+    title: '',
+    items: '',
+    description: '',
+  });
+
+  return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      className="py-1 h-full flex-grow"
+    >
+      <ScrollView className="px-4 h-full" showsVerticalScrollIndicator={false}>
+        <Text className="text-2xl text-mainText font-psemibold my-5">
+          Make your request listing
+        </Text>
+        <CustomInput
+          title="Title"
+          value={form.title}
+          placeholder="Title (eg. Watches, Fan, Chair, etc.)"
+          handleChangeText={(e) => setForm({ ...form, title: e })}
+          otherStyles="mt-5"
+          multiline={true}
+        />
+        <CustomInput
+          title="Items"
+          value={form.items}
+          placeholder="Items (eg. 2 Watches, 1 Fan, etc.)"
+          handleChangeText={(e) => setForm({ ...form, items: e })}
+          otherStyles="mt-5"
+          multiline={true}
+        />
+        <CustomInput
+          title="Description"
+          value={form.description}
+          placeholder="Description (Condition, Weight, etc.)"
+          handleChangeText={(e) => setForm({ ...form, description: e })}
+          otherStyles="mt-5"
+          multiline={true}
+        />
+        <View className="w-full items-center justify-center mt-10">
+          <CustomButton title="Submit" handlePress={() => console.log('helloword')} containerStyles="px-5 w-full" />
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  );
+};
+
+const OfferForm =  () => {
   const [form, setForm] = useState({
     title: '',
     description: '',
@@ -102,22 +185,21 @@ const CreateList = () => {
         Alert.alert("Error uploading image " + e.message);
     }
   };
-
-
   return (
-    <SafeAreaView className="h-full">
-      <KeyboardAvoidingView
+    <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        className="py-10"
+        className="py-1 h-full flex-grow"
       >
-        <ScrollView className="px-4">
-          <Text className="text-2xl text-mainText font-psemibold">
-            Make Your Listing
+        <ScrollView className="px-4 h-full"
+          showsVerticalScrollIndicator={false}
+        >
+          <Text className="text-2xl text-mainText font-psemibold my-5">
+            Make your offer listing
           </Text>
           <View className="py-3">
             {form.photo && <Image source={{uri: form.photo.uri}} resizeMode='cover' className="w-full h-40 px-4 rounded-2xl"/>}
           </View>
-          <View className="flex-row justify-evenly items-center pd-5 w-full h-24 px-4 rounded-2xl border-2 border-dashed border-black-100 space-x-2">
+          <View className={`flex-row justify-evenly items-center pd-5 w-full h-24 px-4 rounded-2xl border-2 border-dashed border-black-100 space-x-2 ${form.photo ? 'border-0' : ''}`}>
             <View>
               <TouchableOpacity onPress={() => openPicker('image')}>
                   <View className="flex-row">
@@ -129,80 +211,78 @@ const CreateList = () => {
                       />
                     </View>
                     <View className="px-2">
-                      <Text className="text-xs text-disabled font-pmedium">Take photo</Text>
-                      <Text className="text-xs text-disabled font-pmedium ">from gallery</Text>
+                      <Text className="text-xs text-disabled font-pmedium">
+                      {form.photo ? 'Change photo' : 'Take photo'} {`\n`}from gallery</Text>
                     </View>
                   </View>
-            </TouchableOpacity>
-          </View>
-              <View className='w-0.5 h-20 bg-mainText'/>
-                <View>
-                  <TouchableOpacity onPress={openCamera}>
-                    <View className="flex-row">
-                      <View>
-                        <Image
-                          source={icons.camera}
-                          resizeMode='contain'
-                          className="w-8 h-8"
-                        />
-                        </View>
-                        <View className="px-2">
-                          <Text className="text-xs text-disabled font-pmedium">Take photo</Text>
-                          <Text className="text-xs text-disabled font-pmedium ">with camera</Text>
-                        </View>
-                      </View>
-                  </TouchableOpacity>
-                </View>
+              </TouchableOpacity>
+            </View>
+            <View className='w-0.5 h-20 bg-mainText'/>
+            <View>
+              <TouchableOpacity onPress={openCamera}>
+                <View className="flex-row">
+                  <View>
+                    <Image source={icons.camera}
+                      resizeMode='contain'
+                      className="w-7 h-7"
+                    />
+                    </View>
+                    <View className="px-2">
+                      <Text className="text-xs text-disabled font-pmedium">
+                      {form.photo ? 'Change photo' : 'Take photo'} {`\n`}with camera</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
               </View>
-              <CustomInput
-                title="Title"
-                value = {form.title}
-                placeholder="Title (eg. Watches, Fan, Chair, etc.)"
-                handleChangeText={(e) => setForm({...form, title:e})}
-                otherStyles="mt-5"
-                multiline={true}
-              />
-              <Dropdown
-                style={[styles.dropdown, isFocus && { borderColor: '#299B65' }]}
-                placeholderStyle={styles.placeholderStyle}
-                selectedTextStyle={styles.selectedTextStyle}
-                inputSearchStyle={styles.inputSearchStyle}
-                iconStyle={styles.iconStyle}
-                data={data}
-                maxHeight={300}
-                labelField="label"
-                valueField="value"
-                placeholder={!isFocus ? 'Select item' : '...'}
-                value={value}
-                onFocus={() => setIsFocus(true)}
-                onBlur={() => setIsFocus(false)}
-                onChange={item => {
-                  setValue(item.value);
-                  setIsFocus(false);
-                }}
-              />
-              <CustomInput
-                title="Description"
-                value = {form.description}
-                placeholder="Description (Condition, Weight, etc.)"
-                handleChangeText={(e) => setForm({...form, description:e})}
-                otherStyles="mt-5"
-                multiline={true}
-              />
-              <CustomInput
-                title="Address"
-                value = {form.description}
-                placeholder="Address (City, Street, etc.)"
-                handleChangeText={(e) => setForm({...form, address:e})}
-                otherStyles="mt-5"
-                multiline={true}
-              />
-              <View className='w-full items-center justify-center mt-10'>
-                <CustomButton title="Submit" handlePress={() => console.log('helloword')} containerStyles='px-5 w-full'/>
-              </View>
+            </View>
+            <CustomInput
+              title="Title"
+              value = {form.title}
+              placeholder="Title (eg. Watches, Fan, Chair, etc.)"
+              handleChangeText={(e) => setForm({...form, title:e})}
+              otherStyles="mt-5"
+              multiline={true}
+            />
+            <Dropdown
+              style={[styles.dropdown, isFocus && { borderColor: '#299B65' }]}
+              placeholderStyle={styles.placeholderStyle}
+              selectedTextStyle={styles.selectedTextStyle}
+              inputSearchStyle={styles.inputSearchStyle}
+              iconStyle={styles.iconStyle}
+              data={data}
+              maxHeight={300}
+              labelField="label"
+              valueField="value"
+              placeholder={!isFocus ? 'Select item' : '...'}
+              value={value}
+              onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
+              onChange={item => {
+                setValue(item.value);
+                setIsFocus(false);
+              }}
+            />
+            <CustomInput
+              title="Description"
+              value = {form.description}
+              placeholder="Description (Condition, Weight, etc.)"
+              handleChangeText={(e) => setForm({...form, description:e})}
+              otherStyles="mt-5"
+              multiline={true}
+            />
+            <CustomInput
+              title="Address"
+              value = {form.description}
+              placeholder="Address (City, Street, etc.)"
+              handleChangeText={(e) => setForm({...form, address:e})}
+              otherStyles="mt-5"
+              multiline={true}
+            />
+            <View className='w-full items-center justify-center mt-10'>
+              <CustomButton title="Submit" handlePress={() => console.log('helloword')} containerStyles='px-5 w-full'/>
+            </View>
         </ScrollView>
       </KeyboardAvoidingView>
-    </SafeAreaView>
   )
 }
 
