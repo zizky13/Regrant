@@ -10,6 +10,7 @@ import SingIn from './screens/auth/SignIn';
 import SignUp from './screens/auth/SignUp';
 import LocationPermission from './screens/auth/LocationPermission';
 import MainLayout from './screens/tabs/MainLayout';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 const Stack = createNativeStackNavigator();
 
@@ -46,6 +47,7 @@ export default function App() {
   if (!fontsLoaded && !error ) return null;
 
   return (
+    <QueryClientProvider client={new QueryClient()}>
     <GestureHandlerRootView style={{ flex: 1 }}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName='MainLayout' screenOptions={{ headerShown: false }}>
@@ -58,5 +60,6 @@ export default function App() {
       </NavigationContainer>
       <StatusBar backgroundColor='#F1F1F1' style='dark'/>
     </GestureHandlerRootView>
+    </QueryClientProvider>
   );
 }

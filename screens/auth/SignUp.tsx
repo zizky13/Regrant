@@ -15,6 +15,7 @@ import { auth } from "../../services/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { db } from "../../services/firebase";
 import { collection, addDoc } from "firebase/firestore";
+import { useStore } from "../../store/zustandStore"
 
 const SignUp = () => {
   const navigation = useNavigation();
@@ -38,11 +39,17 @@ const SignUp = () => {
       );
       const user = signUp.user;
       if (user) {
-        addDoc(collection(db, "users"), {
+        const docRef = await addDoc(collection(db, "users"), {
           username: form.username,
           email: form.email,
           phoneNumber: form.phoneNumber,
+          address: {
+            fullAddress: "",
+            latitude: 0,
+            longitude: 0,
+          }
         });
+        useStore.getState().setDocId(docRef.id);
 
         alert(`User created ${user.email}!`);
       }
