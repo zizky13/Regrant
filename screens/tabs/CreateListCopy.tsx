@@ -11,7 +11,7 @@ import CustomButton from '../../components/CustomButton'
 import { listFiles, uploadToFirebase } from '../../services/firebase';
 import * as MediaLibrary from 'expo-media-library';
 
-const CreateList = () => {
+const CreateListCopy = () => {
   const [form, setForm] = useState({
     title: '',
     description: '',
@@ -260,4 +260,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CreateList
+export default CreateListCopy

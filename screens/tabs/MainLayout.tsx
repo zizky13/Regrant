@@ -3,6 +3,7 @@ import React from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from './Home';
 import CreateList from './CreateList';
+import CreateListCopy from './CreateListCopy';
 import Chat from './Chat';
 import { icons } from '../../constants';
 
@@ -58,6 +59,20 @@ const MainLayout = () => {
               icon={icons.plus}
               color={color}
               name="Make a List"
+              focused={focused}
+            />
+          )
+      }}/>
+      <Tab.Screen 
+        name="Create List Copy" 
+        component={CreateListCopy} 
+        options={{ 
+          headerShown: false,
+          tabBarIcon: ({color, focused}) => (
+            <TabIcon
+              icon={icons.plus}
+              color={color}
+              name="Make a List Copy"
               focused={focused}
             />
           )
