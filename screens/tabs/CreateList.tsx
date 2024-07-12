@@ -114,19 +114,12 @@ const CreateList = () => {
           <Text className="text-2xl text-mainText font-psemibold">
             Make Your Listing
           </Text>
-          <View>
-              {image && <Image source={{ uri: image }}/>}
+          <View className="py-3">
+            {form.photo && <Image source={{uri: form.photo.uri}} resizeMode='cover' className="w-full h-40 px-4 rounded-2xl"/>}
           </View>
           <View className="flex-row justify-evenly items-center pd-5 w-full h-24 px-4 rounded-2xl border-2 border-dashed border-black-100 space-x-2">
             <View>
               <TouchableOpacity onPress={() => openPicker('image')}>
-                {form.photo ? (
-                  <Image
-                    source={{uri: form.photo.uri}}
-                    resizeMode='cover'
-                    className="w-full h-40 px-4 rounded-2xl"
-                  />
-                ) : (
                   <View className="flex-row">
                     <View>
                       <Image
@@ -140,7 +133,6 @@ const CreateList = () => {
                       <Text className="text-xs text-disabled font-pmedium ">from gallery</Text>
                     </View>
                   </View>
-                )}
               </TouchableOpacity>
             </View>
             <View className='w-0.5 h-20 bg-black'/>
@@ -149,7 +141,7 @@ const CreateList = () => {
                   <View className="flex-row">
                     <View>
                       <Image
-                        source={icons.picture}
+                        source={icons.camera}
                         resizeMode='contain'
                         className="w-8 h-8"
                       />
