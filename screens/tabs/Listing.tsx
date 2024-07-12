@@ -1,9 +1,11 @@
-import React, {useState} from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, ScrollView, TextInput, Image } from 'react-native'
+import React, {useEffect, useState} from 'react'
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, ScrollView, TextInput, Image, Button } from 'react-native'
 import { Ionicons, AntDesign, FontAwesome6, FontAwesome5, Entypo} from '@expo/vector-icons'
 
 import { icons } from '../../constants'
 import { useNavigation } from '@react-navigation/native'
+import { db } from '../../services/firebase'
+import { collection, query, getDocs, QuerySnapshot, doc } from 'firebase/firestore'
 
 const Listing = () => {
     const [activeTab, setActiveTab] = useState('offer');
@@ -56,8 +58,6 @@ const Listing = () => {
             <TopTabs setActiveTab={setActiveTab} activeTab={activeTab} />
                 {activeTab === 'offer' && <OfferCard />}
                 {activeTab === 'request' && <RequestCard />}
-           
-            
         </View>
         
     </View>
@@ -93,7 +93,18 @@ const TopTabs = ({ setActiveTab, activeTab }) => {
 const OfferCard = () => {
 
     // dummy
+    const [document, setDocument] = useState([]);
     const navigation = useNavigation();
+    const fetchDocuments = async () => {
+        const querySnapshot = await getDocs(collection(db, "listing-offer"));
+        const documents = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+        setDocument(documents);
+    };
+
+    useEffect(() => {
+        fetchDocuments();
+    }, [document]);
+
 
     const offers = [
         {
@@ -127,15 +138,18 @@ const OfferCard = () => {
           distance: "2km"
         }
       ];
+
     return (
         <FlatList
-            data={offers}
+            data={document}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
             <TouchableOpacity onPress={() => navigation.navigate("Details")}
                 className='flex-row border-[2px] rounded-[5px] border-disabled mb-[12px] p-[8px]'
                 >
-                <Image source={item.image}
+                <Image source={{
+                    uri: item.image
+                }}
                     className='w-[125px] h-[135px] rounded-[5px] '
                     style={{ resizeMode: 'contain' }}
                 />
@@ -171,9 +185,10 @@ const OfferCard = () => {
                     </View>
                 </View>
             </TouchableOpacity>
+            
             )}
             keyExtractor={(item) => item.id.toString()}
-    />
+        />
     );
 };
 
@@ -185,28 +200,28 @@ const RequestCard = () => {
             title: "Kobe needs",
             image: require('../../assets/images/kobeRequested.png'),
             description: "Speaker, Microphone",
-        
+            chatIcon: icons.chat,
         },
         {
             id: 2,
             title: "John needs",
             image: require('../../assets/images/kobeRequested.png'),
             description: "Iron, Power Socket",
-        
+            chatIcon: icons.chat,
         },
         {
             id: 3,
             title: "Charlotte needs",
             image: require('../../assets/images/kobeRequested.png'),
             description: "Book, Pen",
-        
+            chatIcon: icons.chat,
         },
         {
             id: 4,
             title: "Lerbon needs",
             image: require('../../assets/images/kobeRequested.png'),
             description: "Fishing rod, baits",
-        
+            chatIcon: icons.chat,
         },
       ];
     
@@ -233,7 +248,7 @@ const RequestCard = () => {
                     </View>
                     <View className='mx-[10px]'>
                         <TouchableOpacity onPress={() => console.log('Navigate to chat!')}>
-                            <Image source={icons.chat}
+                            <Image source={item.chatIcon}
                                 className='w-[40px] h-[40px]'
                             />
                         </TouchableOpacity>

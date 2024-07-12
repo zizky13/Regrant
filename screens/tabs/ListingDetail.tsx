@@ -7,7 +7,7 @@ import {images} from '../../constants'
 import CustomButton from '../../components/CustomButton'
 
 const ListingDetail = () => {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView className="h-full">
@@ -88,7 +88,7 @@ const ListingDetail = () => {
             <Text className='font-pregular text-subhead'>Reviews</Text>
           </View>
         </TouchableOpacity>
-        <CustomButton title="Chat to offer" handlePress={() => console.log('helloword')} containerStyles='px-5 w-full mb-10'/>
+        <CustomButton title="Chat to offer" handlePress={() => navigation.navigate('Chat')} containerStyles='px-5 w-full mb-10'/>
       </ScrollView>
     </SafeAreaView>
   )

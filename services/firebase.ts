@@ -3,6 +3,7 @@ import { initializeApp, getApp, getApps } from "firebase/app";
 import { initializeAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL, listAll } from "firebase/storage";
+import { getDocs, collection } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -41,6 +42,7 @@ const listRef = ref(storage, 'images');
 const listResp = await listAll(listRef);
 return listResp.items
 };
+
 const uploadToFirebase = async (uri, name, onprogress)=>{
   const fetchResponse = await fetch(uri);
   const theBlob = await fetchResponse.blob();
