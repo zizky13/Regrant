@@ -48,7 +48,7 @@ const CreateList = () => {
 
 const RequestForm = () => {
   const [form, setForm] = useState({
-    title: '',
+
     items: '',
     description: '',
   });
@@ -59,33 +59,27 @@ const RequestForm = () => {
       className="py-1 h-full flex-grow"
     >
       <ScrollView className="px-4 h-full" showsVerticalScrollIndicator={false}>
-        <Text className="text-2xl text-mainText font-psemibold my-5">
+        <Text className="text-2xl text-mainText font-psemibold mt-8">
           Make your request listing
         </Text>
-        <CustomInput
-          title="Title"
-          value={form.title}
-          placeholder="Title (eg. Watches, Fan, Chair, etc.)"
-          handleChangeText={(e) => setForm({ ...form, title: e })}
-          otherStyles="mt-5"
-          multiline={true}
-        />
-        <CustomInput
-          title="Items"
-          value={form.items}
-          placeholder="Items (eg. 2 Watches, 1 Fan, etc.)"
-          handleChangeText={(e) => setForm({ ...form, items: e })}
-          otherStyles="mt-5"
-          multiline={true}
-        />
-        <CustomInput
-          title="Description"
-          value={form.description}
-          placeholder="Description (Condition, Weight, etc.)"
-          handleChangeText={(e) => setForm({ ...form, description: e })}
-          otherStyles="mt-5"
-          multiline={true}
-        />
+        <View className='mt-5'>
+          <CustomInput
+            title="Items"
+            value={form.items}
+            placeholder="Items (eg. 2 Watches, 1 Fan, etc.)"
+            handleChangeText={(e) => setForm({ ...form, items: e })}
+            otherStyles="mt-5"
+            multiline={true}
+          />
+          <CustomInput
+            title="Description"
+            value={form.description}
+            placeholder="Description (Condition, specification, etc.)"
+            handleChangeText={(e) => setForm({ ...form, description: e })}
+            otherStyles="mt-5"
+            multiline={true}
+          />
+        </View>
         <View className="w-full items-center justify-center mt-10">
           <CustomButton title="Submit" handlePress={() => console.log('helloword')} containerStyles="px-5 w-full" />
         </View>
@@ -188,15 +182,15 @@ const OfferForm =  () => {
   return (
     <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
-        className="py-1 h-full flex-grow"
+        className="flex-1 "
       >
         <ScrollView className="px-4 h-full"
           showsVerticalScrollIndicator={false}
         >
-          <Text className="text-2xl text-mainText font-psemibold my-5">
+          <Text className="text-2xl text-mainText font-psemibold mt-8">
             Make your offer listing
           </Text>
-          <View className="py-3">
+          <View className="py-3 mt-5">
             {form.photo && <Image source={{uri: form.photo.uri}} resizeMode='cover' className="w-full h-40 px-4 rounded-2xl"/>}
           </View>
           <View className={`flex-row justify-evenly items-center pd-5 w-full h-24 px-4 rounded-2xl border-2 border-dashed border-black-100 space-x-2 ${form.photo ? 'border-0' : ''}`}>
@@ -272,14 +266,14 @@ const OfferForm =  () => {
             />
             <CustomInput
               title="Address"
-              value = {form.description}
+              value = {form.address}
               placeholder="Address (City, Street, etc.)"
               handleChangeText={(e) => setForm({...form, address:e})}
               otherStyles="mt-5"
               multiline={true}
             />
-            <View className='w-full items-center justify-center mt-10'>
-              <CustomButton title="Submit" handlePress={() => console.log('helloword')} containerStyles='px-5 w-full'/>
+            <View className='w-full items-center justify-center mt-10 mb-4'>
+              <CustomButton title="Submit" handlePress={() => console.log('helloword')} containerStyles='px-5 w-full '/>
             </View>
         </ScrollView>
       </KeyboardAvoidingView>
