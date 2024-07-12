@@ -9,4 +9,5 @@ import back from '../assets/icons/Back.png'
 import location from '../assets/icons/location.png'
 import condition from '../assets/icons/Condition.png'
 import star from '../assets/icons/star.png'
-export default { eye, eyeHide, search, home, chat, plus, picture, back, location, condition, star };
+import camera from '../assets/icons/camera.png';
+export default { eye, eyeHide, search, home, chat, plus, picture, back, location, condition, star, camera };
