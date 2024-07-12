@@ -185,28 +185,28 @@ const RequestCard = () => {
             title: "Kobe needs",
             image: require('../../assets/images/kobeRequested.png'),
             description: "Speaker, Microphone",
-            chatIcon: icons.chat,
+        
         },
         {
             id: 2,
             title: "John needs",
             image: require('../../assets/images/kobeRequested.png'),
             description: "Iron, Power Socket",
-            chatIcon: icons.chat,
+        
         },
         {
             id: 3,
             title: "Charlotte needs",
             image: require('../../assets/images/kobeRequested.png'),
             description: "Book, Pen",
-            chatIcon: icons.chat,
+        
         },
         {
             id: 4,
             title: "Lerbon needs",
             image: require('../../assets/images/kobeRequested.png'),
             description: "Fishing rod, baits",
-            chatIcon: icons.chat,
+        
         },
       ];
     
@@ -233,7 +233,7 @@ const RequestCard = () => {
                     </View>
                     <View className='mx-[10px]'>
                         <TouchableOpacity onPress={() => console.log('Navigate to chat!')}>
-                            <Image source={item.chatIcon}
+                            <Image source={icons.chat}
                                 className='w-[40px] h-[40px]'
                             />
                         </TouchableOpacity>

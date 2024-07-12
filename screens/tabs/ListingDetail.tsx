@@ -4,13 +4,14 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { icons } from '../../constants'
 import { useNavigation } from '@react-navigation/native'
 import {images} from '../../constants'
+import CustomButton from '../../components/CustomButton'
 
 const ListingDetail = () => {
   const navigation = useNavigation()
 
   return (
     <SafeAreaView className="h-full">
-      <ScrollView className="py-4 px-4">
+      <ScrollView className="py-4 px-4 ">
         <View className='flex-row justify-center'>
           <TouchableOpacity 
             onPress={() => navigation.goBack()} 
@@ -87,6 +88,7 @@ const ListingDetail = () => {
             <Text className='font-pregular text-subhead'>Reviews</Text>
           </View>
         </TouchableOpacity>
+        <CustomButton title="Chat to offer" handlePress={() => console.log('helloword')} containerStyles='px-5 w-full mb-10'/>
       </ScrollView>
     </SafeAreaView>
   )

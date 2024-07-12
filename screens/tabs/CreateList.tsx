@@ -133,75 +133,75 @@ const CreateList = () => {
                       <Text className="text-xs text-disabled font-pmedium ">from gallery</Text>
                     </View>
                   </View>
-              </TouchableOpacity>
-            </View>
-            <View className='w-0.5 h-20 bg-black'/>
-            <View>
-              <TouchableOpacity onPress={openCamera}>
-                  <View className="flex-row">
-                    <View>
-                      <Image
-                        source={icons.camera}
-                        resizeMode='contain'
-                        className="w-8 h-8"
-                      />
-                    </View>
-                    <View className="px-2">
-                      <Text className="text-xs text-disabled font-pmedium">Take photo</Text>
-                      <Text className="text-xs text-disabled font-pmedium ">with camera</Text>
-                    </View>
-                  </View>
-              </TouchableOpacity>
-            </View>
+            </TouchableOpacity>
           </View>
-          <CustomInput
-            title="Title"
-            value = {form.title}
-            placeholder="Title (eg. Watches, Fan, Chair, etc.)"
-            handleChangeText={(e) => setForm({...form, title:e})}
-            otherStyles="mt-5"
-            multiline={true}
-          />
-          <Dropdown
-            style={[styles.dropdown, isFocus && { borderColor: '#299B65' }]}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
-            data={data}
-            maxHeight={300}
-            labelField="label"
-            valueField="value"
-            placeholder={!isFocus ? 'Select item' : '...'}
-            value={value}
-            onFocus={() => setIsFocus(true)}
-            onBlur={() => setIsFocus(false)}
-            onChange={item => {
-              setValue(item.value);
-              setIsFocus(false);
-            }}
-          />
-          <CustomInput
-            title="Description"
-            value = {form.description}
-            placeholder="Description (Condition, Weight, etc.)"
-            handleChangeText={(e) => setForm({...form, description:e})}
-            otherStyles="mt-5"
-            multiline={true}
-          />
-           <CustomInput
-            title="Address"
-            value = {form.description}
-            placeholder="Address (City, Street, etc.)"
-            handleChangeText={(e) => setForm({...form, address:e})}
-            otherStyles="mt-5"
-            multiline={true}
-          />
-          <View className='w-full items-center justify-center mt-10'>
-            <CustomButton title="Submit" handlePress={() => console.log('helloword')} containerStyles='px-5 w-full'/>
-          </View>
+              <View className='w-0.5 h-20 bg-mainText'/>
+                <View>
+                  <TouchableOpacity onPress={openCamera}>
+                    <View className="flex-row">
+                      <View>
+                        <Image
+                          source={icons.camera}
+                          resizeMode='contain'
+                          className="w-8 h-8"
+                        />
+                        </View>
+                        <View className="px-2">
+                          <Text className="text-xs text-disabled font-pmedium">Take photo</Text>
+                          <Text className="text-xs text-disabled font-pmedium ">with camera</Text>
+                        </View>
+                      </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+              <CustomInput
+                title="Title"
+                value = {form.title}
+                placeholder="Title (eg. Watches, Fan, Chair, etc.)"
+                handleChangeText={(e) => setForm({...form, title:e})}
+                otherStyles="mt-5"
+                multiline={true}
+              />
+              <Dropdown
+                style={[styles.dropdown, isFocus && { borderColor: '#299B65' }]}
+                placeholderStyle={styles.placeholderStyle}
+                selectedTextStyle={styles.selectedTextStyle}
+                inputSearchStyle={styles.inputSearchStyle}
+                iconStyle={styles.iconStyle}
+                data={data}
+                maxHeight={300}
+                labelField="label"
+                valueField="value"
+                placeholder={!isFocus ? 'Select item' : '...'}
+                value={value}
+                onFocus={() => setIsFocus(true)}
+                onBlur={() => setIsFocus(false)}
+                onChange={item => {
+                  setValue(item.value);
+                  setIsFocus(false);
+                }}
+              />
+              <CustomInput
+                title="Description"
+                value = {form.description}
+                placeholder="Description (Condition, Weight, etc.)"
+                handleChangeText={(e) => setForm({...form, description:e})}
+                otherStyles="mt-5"
+                multiline={true}
+              />
+              <CustomInput
+                title="Address"
+                value = {form.description}
+                placeholder="Address (City, Street, etc.)"
+                handleChangeText={(e) => setForm({...form, address:e})}
+                otherStyles="mt-5"
+                multiline={true}
+              />
+              <View className='w-full items-center justify-center mt-10'>
+                <CustomButton title="Submit" handlePress={() => console.log('helloword')} containerStyles='px-5 w-full'/>
+              </View>
         </ScrollView>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   )
 }
