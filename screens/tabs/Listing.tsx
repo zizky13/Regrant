@@ -19,7 +19,7 @@ const Listing = () => {
                 className='flex-row items-center'>
                 <FontAwesome6 name="user-circle" size={40} color="#252525" marginHorizontal={5}  />
                     <View className='mx-[10px]'>
-                        <Text className='text-[16px] font-medium text-mainText'> Reza</Text>
+                        <Text className='text-[16px] font-medium text-mainText'> Artamevia</Text>
                         <View className='flex-row items-center'>
                             <Entypo name="star" size={15} color="#299B65" />
                             <Text className='text-subhead'> 4.5</Text>

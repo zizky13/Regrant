@@ -54,6 +54,7 @@ const SignUp = () => {
         useStore.getState().setDocId(docRef.id);
 
         alert(`User created ${user.email}!`);
+        navigation.navigate("LocationPermission");
       }
     } catch (error) {
       return console.log(error);

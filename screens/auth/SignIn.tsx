@@ -23,7 +23,7 @@ const SignIn = () => {
       const user = login.user;
       if (user) {
         alert(`Welcome ${user.email}!`);
-        navigation.navigate("MainLayout");
+        navigation.navigate("LocationPermission");
       }
 
     } catch (error) {

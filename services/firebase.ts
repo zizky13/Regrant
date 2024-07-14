@@ -10,7 +10,7 @@ import { getDocs, collection } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCsP1F3JYuKG-Lv59Zi2eGYN0zCYDrpuYw",
+  apiKey: process.env.EXPO_PUBLIC_FIREBASE_API_KEY,
   authDomain: "regrant.firebaseapp.com",
   projectId: "regrant",
   storageBucket: "regrant.appspot.com",
