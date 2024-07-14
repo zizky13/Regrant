@@ -5,9 +5,12 @@ import { icons } from '../../constants'
 import { useNavigation } from '@react-navigation/native'
 import {images} from '../../constants'
 import CustomButton from '../../components/CustomButton'
+import { useRoute } from '@react-navigation/native'
+import { item } from '../../assets/images/item.png'
 
 const ListingDetail = () => {
   const navigation = useNavigation();
+  const { title, image, conditionPercentage } = useRoute().params as any;
 
   return (
     <SafeAreaView className="h-full">
@@ -29,12 +32,14 @@ const ListingDetail = () => {
         </View>
         <View className='w-full items-center mt-7'>
           <Image
-            source={images.item}
-            resizeMode='contain'
+            source={{
+              uri: image
+            }}
+            resizeMode='cover'
           />
         </View>
         <View className='mt-5 flex-row justify-between items-center'>
-          <Text className='text-2xl text-mainText font-psemibold mb-[2px]'>Deez Watch</Text>
+          <Text className='text-2xl text-mainText font-psemibold mb-[2px]'>{ title }</Text>
           <View className='flex-row items-center gap-x-1'>
             <Image
               source={icons.location}
@@ -53,7 +58,7 @@ const ListingDetail = () => {
             resizeMode='contain'
             className='w-[15px] h-[13px]'
           />
-          <Text className='ml-[4px] text-subhead'>Conditions 78%</Text>
+          <Text className='ml-[4px] text-subhead'>Condition: { conditionPercentage }</Text>
         </View>
         <View className='border-t mt-[10px]'>
           <Text className='text-xl font-pmedium mt-[10px] text-mainText'>Description</Text>

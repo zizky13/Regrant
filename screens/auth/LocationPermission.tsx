@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import SearchInput from '../../components/SearchInput'
 import MapView,  { PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from 'expo-location';
-import { updateDoc, doc } from 'firebase/firestore';
+import { setDoc, doc } from 'firebase/firestore';
 import { db } from '../../services/firebase'
 import { useStore } from '../../store/zustandStore'
 
@@ -52,7 +52,7 @@ const LocationPermission = () => {
   }
 
   const getAddress = async (latitude: number, longitude: number) => {
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyCsP1F3JYuKG-Lv59Zi2eGYN0zCYDrpuYw`;
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${process.env.EXPO_PUBLIC_FIREBASE_API_KEY}`;
     const res  = await fetch(url);
 
     if (!res.ok) {
@@ -63,13 +63,16 @@ const LocationPermission = () => {
     const dataAddress = data.results[0].formatted_address;
     setDataAddress(dataAddress);
     
-    await updateDoc(doc(db, 'users', useStore.getState().docId), {
+    await setDoc(doc(db, 'users', useStore.getState().docId), {
         address: {
           fullAddress: dataAddress,
           latitude: latitude,
           longitude: longitude
         }
       });
+
+    alert('Location set successfully');
+    navigation.navigate('MainLayout');
 
   }
 
