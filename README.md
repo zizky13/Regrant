@@ -1,11 +1,12 @@
 # Regrant - Where Sharing Builds Caring
+![Regrant](https://github.com/user-attachments/assets/13642cb4-c0ee-4042-803a-0d4ec444d08a)
 
 ## Introduction
 Ever been in a situation where you have secondhand goods that piling up in your storage but have no idea where to give them? Afraid of damaging the environment by mindlessly trashing them away? Wan't to get a secondhand goods for yourself without spending money? 
 
 No worries! We got you covered!
 
-Regrant is a resource sharing app that connects people who have secondhand goods that is still usable to other people who may find it interesting. The app was developed using React Native for bringing the mobile side, NativeWind framwork for delightful UI, also GCP and Firebase stacks to provide the backend service. This project is still in beta phase.
+Regrant is a resource sharing app that connects people who have secondhand goods that is still usable to other people who may find it interesting. The app was developed using React Native for bringing the mobile side, NativeWind framework for delightful UI, also GCP and Firebase stacks to provide the backend service. This project is still in beta phase.
 
 ## Installation
 
